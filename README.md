@@ -1,8 +1,19 @@
-# React + Vite
+# 🔌 Logic Gate Simulator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📌 Overview
+The **Logic Gate Simulator** is an **interactive drag-and-drop web application** that allows users to create, connect, and simulate **digital logic circuits**. Users can **add logic gates to a canvas, move them freely, and connect them with wires** to visualize how logical operations work.
 
-Currently, two official plugins are available:
+## ✨ Features
+✅ **Drag & Drop Logic Gates** (AND, OR, NOT, NAND, etc.)  
+✅ **Double-Click to Connect Wires** between gates  
+✅ **Movable Gates** with real-time positioning  
+✅ **Dynamic Wire Connections** using SVG  
+✅ **Example Logic Tables** for guided learning  
+✅ **Minimalist & Responsive UI**  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠️ Tech Stack
+- **React.js** – UI rendering  
+- **Framer Motion** – Smooth animations  
+- **React Draggable** – Drag-and-drop support  
+- **SVG & HTML Canvas** – Wire drawing  
+- **CSS (Flexbox & Grid)** – Styling  
