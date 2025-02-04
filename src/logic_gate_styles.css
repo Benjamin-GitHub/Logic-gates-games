@@ -8,53 +8,65 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  overflow: hidden;
 }
 
 .container {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   width: 100%;
   max-width: 1200px;
-  padding: 20px;
+  padding: 10px;
 }
 
 .card {
   background-color: white;
-  padding: 20px;
+  padding: 10px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 250px;
   text-align: center;
-  margin-right: 20px;
+  margin-bottom: 5px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .button-container {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 5px;
+  margin-top: 5px;
 }
 
 .button {
   background-color: #007bff;
   border: none;
   color: white;
-  padding: 10px 20px;
+  padding: 6px 12px;
   border-radius: 5px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.3s ease-in-out;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .button:hover {
   background-color: #0056b3;
+  transform: scale(1.05);
 }
 
 .logic-gate-container {
   display: flex;
-  gap: 20px;
-  align-items: flex-start;
   width: 100%;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .gate-selector {
@@ -62,10 +74,11 @@ body {
   flex-direction: column;
   align-items: center;
   background: white;
-  padding: 15px;
+  padding: 10px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin-right: 20px;
+  flex-shrink: 0;
 }
 
 .logic-gate {
@@ -78,11 +91,12 @@ body {
   width: 80px;
   margin-bottom: 10px;
   border: none;
-  transition: background 0.3s;
+  transition: background 0.3s, transform 0.2s;
 }
 
 .logic-gate:hover {
   background-color: #218838;
+  transform: scale(1.05);
 }
 
 .canvas {
@@ -95,6 +109,7 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   min-width: 600px;
+  max-width: 100%;
 }
 
 .draggable-gate {
@@ -126,4 +141,41 @@ body {
 .connections line {
   stroke: blue;
   stroke-width: 2;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+  }
+  
+  .logic-gate-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .gate-selector {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .logic-gate {
+    margin: 5px;
+  }
+  
+  .canvas {
+    min-width: 100%;
+    height: 400px;
+  }
+  
+  .card {
+    width: 90%;
+    padding: 8px;
+  }
 }
