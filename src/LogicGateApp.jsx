@@ -55,6 +55,12 @@ export default function LogicGateApp() {
     }
   };
 
+  // ✅ Function to reset only the canvas without reloading the page
+  const resetCanvas = () => {
+    setElements([]); // Clear all placed gates
+    setConnections([]); // Remove all wire connections
+  };
+
   return (
     <div className="container">
       <div className="card">
@@ -108,6 +114,10 @@ export default function LogicGateApp() {
         </div>
 
         <div className="canvas">
+          <button className="refresh-button" onClick={resetCanvas}>
+            🔄 Try Again
+          </button>
+
           {elements.map((el) => {
             if (!gateRefs.current[el.id]) {
               gateRefs.current[el.id] = React.createRef();
