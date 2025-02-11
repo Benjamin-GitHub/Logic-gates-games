@@ -1,3 +1,10 @@
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="100" height="100" viewBox="0, 0, 100, 100">
-  <path d="M0.5,0.5 L49.875,0.5 C77.144,0.5 99.25,22.606 99.25,49.875 C99.25,77.144 77.144,99.25 49.875,99.25 L0.5,99.25 L0.5,0.5" fill="#FFFFFF" stroke="#4C4C4C" stroke-width="2"/>
+<svg width="186" height="100" viewBox="0 0 186 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M50 2H102C126.301 2 146 21.6995 146 46V54C146 78.3005 126.301 98 102 98H50V2Z" fill="white" stroke="black" stroke-width="4"/>
+<line x1="48" y1="24.5" x2="8" y2="24.5" stroke="black" stroke-width="3"/>
+<line x1="177" y1="47.5" x2="147" y2="47.5" stroke="black" stroke-width="3"/>
+<line x1="48" y1="75.5" x2="8" y2="75.5" stroke="black" stroke-width="3"/>
+<circle cx="5.5" cy="75.5" r="4.5" fill="black" stroke="white" stroke-width="2"/>
+<circle cx="5.5" cy="24.5" r="4.5" fill="black" stroke="white" stroke-width="2"/>
+<circle cx="180.5" cy="46.5" r="4.5" fill="black" stroke="white" stroke-width="2"/>
 </svg>
+

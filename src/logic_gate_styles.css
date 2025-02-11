@@ -82,13 +82,13 @@ body {
 }
 
 .logic-gate {
-  background-color: #28a745;
+  background-color: transparent;
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
   text-align: center;
   color: white;
-  width: 80px;
+  width: 100%;
   margin-bottom: 10px;
   border: none;
   transition: background 0.3s, transform 0.2s;
@@ -134,7 +134,7 @@ body {
 }
 
 .draggable-gate {
-  background-color: #007bff;
+  background-color: transparent;
   color: white;
   padding: 10px;
   border-radius: 5px;

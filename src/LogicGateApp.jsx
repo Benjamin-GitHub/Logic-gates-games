@@ -6,12 +6,14 @@ import andGate from "./assets/and.svg";
 import notGate from "./assets/not.svg";
 import nandGate from "./assets/nand.svg";
 import orGate from "./assets/or.svg";
+import norGate from "./assets/nor.svg";
 
 const gateIcons = {
   AND: { src: andGate, inputs: 2, outputs: 1 },
   NOT: { src: notGate, inputs: 1, outputs: 1 },
   OR: { src: orGate, inputs: 2, outputs: 1 },
   NAND: { src: nandGate, inputs: 2, outputs: 1 },
+  NOR: { src: norGate, input:2, output:1}
 };
 
 const examples = [
@@ -55,7 +57,6 @@ export default function LogicGateApp() {
     }
   };
 
-  // ✅ Function to reset only the canvas without reloading the page
   const resetCanvas = () => {
     setElements([]); // Clear all placed gates
     setConnections([]); // Remove all wire connections
@@ -108,7 +109,7 @@ export default function LogicGateApp() {
           <h3>Logic Gates</h3>
           {Object.keys(gateIcons).map((gate) => (
             <button key={gate} onClick={() => addGate(gate)} className="logic-gate">
-              <img src={gateIcons[gate].src} alt={`${gate} Gate`} width={40} height={40} />
+              <img src={gateIcons[gate].src} alt={`${gate} Gate`} width="50" height="30" style={{ objectFit: "contain" }}/>
             </button>
           ))}
         </div>

@@ -1,36 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="115" height="100" viewBox="0, 0, 115, 100">
-  <g id="Background">
-    <rect x="0" y="0" width="115" height="100" fill="#FFFFFF"/>
-    <g stroke-width="1px">
-      <line x1="12" y1="0" x2="12" y2="100" stroke="#AAAAAA" stroke-opacity="0.25"/>
-      <line x1="24" y1="0" x2="24" y2="100" stroke="#AAAAAA" stroke-opacity="0.25"/>
-      <line x1="36" y1="0" x2="36" y2="100" stroke="#AAAAAA" stroke-opacity="0.25"/>
-      <line x1="48" y1="0" x2="48" y2="100" stroke="#AAAAAA" stroke-opacity="0.25"/>
-      <line x1="60" y1="0" x2="60" y2="100" stroke="#AAAAAA" stroke-opacity="0.25"/>
-      <line x1="72" y1="0" x2="72" y2="100" stroke="#AAAAAA" stroke-opacity="0.5"/>
-      <line x1="84" y1="0" x2="84" y2="100" stroke="#AAAAAA" stroke-opacity="0.25"/>
-      <line x1="96" y1="0" x2="96" y2="100" stroke="#AAAAAA" stroke-opacity="0.25"/>
-      <line x1="108" y1="0" x2="108" y2="100" stroke="#AAAAAA" stroke-opacity="0.25"/>
-      <line x1="0" y1="12" x2="115" y2="12" stroke="#AAAAAA" stroke-opacity="0.25"/>
-      <line x1="0" y1="24" x2="115" y2="24" stroke="#AAAAAA" stroke-opacity="0.25"/>
-      <line x1="0" y1="36" x2="115" y2="36" stroke="#AAAAAA" stroke-opacity="0.25"/>
-      <line x1="0" y1="48" x2="115" y2="48" stroke="#AAAAAA" stroke-opacity="0.25"/>
-      <line x1="0" y1="60" x2="115" y2="60" stroke="#AAAAAA" stroke-opacity="0.25"/>
-      <line x1="0" y1="72" x2="115" y2="72" stroke="#AAAAAA" stroke-opacity="0.5"/>
-      <line x1="0" y1="84" x2="115" y2="84" stroke="#AAAAAA" stroke-opacity="0.25"/>
-      <line x1="0" y1="96" x2="115" y2="96" stroke="#AAAAAA" stroke-opacity="0.25"/>
-    </g>
-  </g>
-  <g id="Layer_1">
-    <g>
-      <path d="M0.5,1.125 L49.875,1.125 C77.144,1.125 99.25,23.231 99.25,50.5 C99.25,77.769 77.144,99.875 49.875,99.875 L0.5,99.875 L0.5,1.125" fill="#FFFFFF"/>
-      <path d="M0.5,1.125 L49.875,1.125 C77.144,1.125 99.25,23.231 99.25,50.5 C99.25,77.769 77.144,99.875 49.875,99.875 L0.5,99.875 L0.5,1.125" fill-opacity="0" stroke="#4C4C4C" stroke-width="2"/>
-    </g>
-    <g>
-      <path d="M106.75,58.25 C102.47,58.25 99,54.78 99,50.5 C99,46.22 102.47,42.75 106.75,42.75 C111.03,42.75 114.5,46.22 114.5,50.5 C114.5,54.78 111.03,58.25 106.75,58.25 z" fill="#FFFFFF"/>
-      <path d="M106.75,58.25 C102.47,58.25 99,54.78 99,50.5 C99,46.22 102.47,42.75 106.75,42.75 C111.03,42.75 114.5,46.22 114.5,50.5 C114.5,54.78 111.03,58.25 106.75,58.25 z" fill-opacity="0" stroke="#4C4C4C" stroke-width="2"/>
-    </g>
-  </g>
+<svg width="186" height="100" viewBox="0 0 186 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<line x1="48" y1="26.5" x2="8" y2="26.5" stroke="black" stroke-width="3"/>
+<line x1="177" y1="49.5" x2="169" y2="49.5" stroke="black" stroke-width="3"/>
+<line x1="48" y1="77.5" x2="8" y2="77.5" stroke="black" stroke-width="3"/>
+<circle cx="5.5" cy="77.5" r="4.5" fill="black" stroke="white" stroke-width="2"/>
+<circle cx="5.5" cy="26.5" r="4.5" fill="black" stroke="white" stroke-width="2"/>
+<circle cx="180.5" cy="48.5" r="4.5" fill="black" stroke="white" stroke-width="2"/>
+<g filter="url(#filter0_d_5_44)">
+<circle cx="158.5" cy="50.5" r="9.5" fill="white"/>
+<circle cx="158.5" cy="50.5" r="12" stroke="black" stroke-width="5"/>
+</g>
+<path d="M50 2H102C126.301 2 146 21.6995 146 46V54C146 78.3005 126.301 98 102 98H50V2Z" fill="white" stroke="black" stroke-width="4"/>
+<defs>
+<filter id="filter0_d_5_44" x="140" y="36" width="37" height="37" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="4"/>
+<feGaussianBlur stdDeviation="2"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_5_44"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_5_44" result="shape"/>
+</filter>
+</defs>
 </svg>
