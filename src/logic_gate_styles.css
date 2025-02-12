@@ -94,9 +94,22 @@ body {
   transition: background 0.3s, transform 0.2s;
 }
 
-.logic-gate:hover {
+.logic-gate:hover, .logic-gate-line:hover {
   background-color: #218838;
   transform: scale(1.05);
+}
+
+.logic-gate-line {
+  background-color: rgb(202, 148, 148);
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  width: 100%;
+  margin-bottom: 10px;
+  border: none;
+  transition: background 0.3s, transform 0.2s;
 }
 
 .canvas {
@@ -116,8 +129,8 @@ body {
   position: absolute;
   top: 10px;
   right: 10px;
-  background-color: #ff4757;
-  color: white;
+  background-color: #cf757c;
+  color: rgb(0, 0, 0);
   border: none;
   padding: 6px 12px;
   border-radius: 5px;

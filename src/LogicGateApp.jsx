@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Draggable from "react-draggable";
 import { motion } from "framer-motion";
 import "./logic_gate_styles.css";
@@ -13,7 +13,7 @@ const gateIcons = {
   NOT: { src: notGate, inputs: 1, outputs: 1 },
   OR: { src: orGate, inputs: 2, outputs: 1 },
   NAND: { src: nandGate, inputs: 2, outputs: 1 },
-  NOR: { src: norGate, input:2, output:1}
+  NOR: { src: norGate, inputs: 2, outputs: 1 },
 };
 
 const examples = [
@@ -25,8 +25,24 @@ export default function LogicGateApp() {
   const [elements, setElements] = useState([]);
   const [connections, setConnections] = useState([]);
   const gateRefs = useRef({});
-  const [connectingFrom, setConnectingFrom] = useState(null);
+  const [isDrawing, setIsDrawing] = useState(false);
+  const [tempConnection, setTempConnection] = useState(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [exampleIndex, setExampleIndex] = useState(0);
+
+  useEffect(() => {
+    const handleMouseMove = (event) => {
+      setMousePosition({ x: event.clientX, y: event.clientY });
+    };
+
+    if (isDrawing) {
+      window.addEventListener("mousemove", handleMouseMove);
+    } else {
+      window.removeEventListener("mousemove", handleMouseMove);
+    }
+
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [isDrawing]);
 
   const addGate = (gate) => {
     const id = Date.now();
@@ -36,7 +52,7 @@ export default function LogicGateApp() {
 
     const defaultX = Math.max(10, Math.min(canvasRect.width - 50, canvasRect.width / 2));
     const defaultY = Math.max(10, Math.min(canvasRect.height - 50, canvasRect.height / 2));
-    
+
     setElements([...elements, { id, type: gate, x: defaultX, y: defaultY, inputs: [], output: null }]);
   };
 
@@ -46,20 +62,40 @@ export default function LogicGateApp() {
     );
   };
 
-  const handleGateDoubleClick = (id, portType, portIndex) => {
-    if (connectingFrom === null) {
-      setConnectingFrom({ id, portType, portIndex });
-    } else {
-      if (connectingFrom.id !== id) {
-        setConnections([...connections, { from: connectingFrom, to: { id, portType, portIndex } }]);
+  const handleGateClick = (id, event) => {
+    if (!isDrawing) return;
+
+    const gateElement = gateRefs.current[id]?.current;
+    if (!gateElement) return;
+
+    const rect = gateElement.getBoundingClientRect();
+    const clickX = event.clientX - rect.left;
+    const gateWidth = rect.width;
+
+    const gateData = gateIcons[elements.find(el => el.id === id).type];
+
+    if (!tempConnection) {
+      if (clickX > gateWidth / 2) {
+        setTempConnection({ id, portType: "output", portIndex: 0 });
       }
-      setConnectingFrom(null);
+    } else {
+      if (clickX < gateWidth / 2) {
+        let inputIndex = 0;
+        if (gateData.inputs === 2) {
+          const clickY = event.clientY - rect.top;
+          inputIndex = clickY < rect.height / 2 ? 0 : 1;
+        }
+
+        setConnections([...connections, { from: tempConnection, to: { id, portType: "input", portIndex: inputIndex } }]);
+        setTempConnection(null);
+        setIsDrawing(false);
+      }
     }
   };
 
   const resetCanvas = () => {
-    setElements([]); // Clear all placed gates
-    setConnections([]); // Remove all wire connections
+    setElements([]);
+    setConnections([]);
   };
 
   return (
@@ -85,20 +121,10 @@ export default function LogicGateApp() {
           </tbody>
         </table>
         <div className="button-container">
-          <button
-            onClick={() => setExampleIndex((prev) => Math.max(0, prev - 1))}
-            className="button"
-          >
+          <button onClick={() => setExampleIndex((prev) => Math.max(0, prev - 1))} className="button">
             Previous
           </button>
-          <button
-            onClick={() =>
-              setExampleIndex((prev) =>
-                Math.min(examples.length - 1, prev + 1)
-              )
-            }
-            className="button"
-          >
+          <button onClick={() => setExampleIndex((prev) => Math.min(examples.length - 1, prev + 1))} className="button">
             Next
           </button>
         </div>
@@ -109,9 +135,12 @@ export default function LogicGateApp() {
           <h3>Logic Gates</h3>
           {Object.keys(gateIcons).map((gate) => (
             <button key={gate} onClick={() => addGate(gate)} className="logic-gate">
-              <img src={gateIcons[gate].src} alt={`${gate} Gate`} width="50" height="30" style={{ objectFit: "contain" }}/>
+              <img src={gateIcons[gate].src} alt={`${gate} Gate`} width="50" height="30" style={{ objectFit: "contain" }} />
             </button>
           ))}
+          <button onClick={() => setIsDrawing(true)} className="logic-gate-line">
+            🔗 Draw Connection
+          </button>
         </div>
 
         <div className="canvas">
@@ -119,44 +148,33 @@ export default function LogicGateApp() {
             🔄 Try Again
           </button>
 
-          {elements.map((el) => {
-            if (!gateRefs.current[el.id]) {
-              gateRefs.current[el.id] = React.createRef();
-            }
-            const gateData = gateIcons[el.type];
-            return (
-              <Draggable
-                key={el.id}
-                nodeRef={gateRefs.current[el.id]}
-                defaultPosition={{ x: el.x, y: el.y }}
-                onStop={(e, data) => moveGate(el.id, data.x, data.y)}
-              >
-                <motion.div
-                  ref={gateRefs.current[el.id]}
-                  className="draggable-gate"
-                  onDoubleClick={() => handleGateDoubleClick(el.id, "output", 0)}
-                >
-                  <img src={gateData.src} alt={`${el.type} Gate`} width={60} height={60} />
-                </motion.div>
-              </Draggable>
-            );
-          })}
+          {elements.map((el) => (
+            <Draggable key={el.id} nodeRef={gateRefs.current[el.id]} defaultPosition={{ x: el.x, y: el.y }} onStop={(e, data) => moveGate(el.id, data.x, data.y)}>
+              <motion.div ref={gateRefs.current[el.id]} className="draggable-gate" onClick={(event) => handleGateClick(el.id, event)}>
+                <img src={gateIcons[el.type].src} alt={`${el.type} Gate`} width={60} height={60} />
+              </motion.div>
+            </Draggable>
+          ))}
+
           <svg className="connections">
             {connections.map((conn, index) => {
               const fromEl = elements.find((el) => el.id === conn.from.id);
               const toEl = elements.find((el) => el.id === conn.to.id);
-              return fromEl && toEl ? (
-                <line
-                  key={index}
-                  x1={fromEl.x + 30}
-                  y1={fromEl.y + 30 + conn.from.portIndex * 10}
-                  x2={toEl.x + 30}
-                  y2={toEl.y + 30 + conn.to.portIndex * 10}
-                  stroke="blue"
-                  strokeWidth="2"
-                />
-              ) : null;
+              if (!fromEl || !toEl) return null;
+
+              const toGateData = gateIcons[toEl.type];
+
+              const fromX = fromEl.x + 69;
+              const fromY = fromEl.y + 39;
+
+              const inputIndex = conn.to.portIndex || 0;
+              let toX = toEl.x + 12;
+              let toY = toEl.y + (toGateData.inputs === 1 ? 39 : inputIndex === 0 ? 33 : 49);
+
+              return <line key={index} x1={fromX} y1={fromY} x2={toX} y2={toY} stroke="blue" strokeWidth="2" />;
             })}
+
+            {tempConnection && <line x1={elements.find(el => el.id === tempConnection.id).x + 60} y1={elements.find(el => el.id === tempConnection.id).y + 30} x2={mousePosition.x} y2={mousePosition.y} stroke="red" strokeWidth="2" />}
           </svg>
         </div>
       </div>

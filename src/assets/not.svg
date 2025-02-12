@@ -1,10 +1,8 @@
 <svg width="187" height="113" viewBox="0 0 187 113" fill="none" xmlns="http://www.w3.org/2000/svg">
-<line x1="51" y1="84.5" x2="11" y2="84.5" stroke="black" stroke-width="3"/>
-<line x1="50" y1="33.5" x2="10" y2="33.5" stroke="black" stroke-width="3"/>
+<line x1="51" y1="55.5" x2="11" y2="55.5" stroke="black" stroke-width="3"/>
 <line x1="178" y1="56.5" x2="163" y2="56.5" stroke="black" stroke-width="3"/>
 <circle cx="181.5" cy="55.5" r="4.5" fill="black" stroke="white" stroke-width="2"/>
-<circle cx="5.5" cy="84.5" r="4.5" fill="black" stroke="white" stroke-width="2"/>
-<circle cx="5.5" cy="33.5" r="4.5" fill="black" stroke="white" stroke-width="2"/>
+<circle cx="5.5" cy="55.5" r="4.5" fill="black" stroke="white" stroke-width="2"/>
 <circle cx="150.5" cy="56.5" r="12" fill="white" stroke="black" stroke-width="5"/>
 <path d="M52 10.789L144.486 56.5L52 102.211V10.789Z" fill="white" stroke="black" stroke-width="4"/>
 </svg>
