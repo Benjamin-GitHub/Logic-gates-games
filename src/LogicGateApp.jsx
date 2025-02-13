@@ -29,6 +29,7 @@ export default function LogicGateApp() {
   const [tempConnection, setTempConnection] = useState(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [exampleIndex, setExampleIndex] = useState(0);
+  const [lastGatePosition, setLastGatePosition] = useState({ x: 50, y: 50 });
 
   useEffect(() => {
     const handleMouseMove = (event) => {
@@ -49,11 +50,27 @@ export default function LogicGateApp() {
     gateRefs.current[id] = React.createRef();
     const canvas = document.querySelector(".canvas");
     const canvasRect = canvas.getBoundingClientRect();
-
-    const defaultX = Math.max(10, Math.min(canvasRect.width - 50, canvasRect.width / 2));
-    const defaultY = Math.max(10, Math.min(canvasRect.height - 50, canvasRect.height / 2));
-
-    setElements([...elements, { id, type: gate, x: defaultX, y: defaultY, inputs: [], output: null }]);
+    const gateWidth = 70; // Approximate gate width
+    const gateHeight = 70; // Approximate gate height
+    const padding = 20; // Space between gates
+  
+    let newX = lastGatePosition.x + gateWidth + padding;
+    let newY = lastGatePosition.y;
+  
+    // If the new gate will go out of canvas width, wrap to next row
+    if (newX + gateWidth > canvasRect.width) {
+      newX = 50; // Reset X position
+      newY += gateHeight + padding; // Move to the next row
+    }
+  
+    // If the new gate goes out of canvas height, restart from the first position
+    if (newY + gateHeight > canvasRect.height) {
+      newX = 50;
+      newY = 50;
+    }
+  
+    setElements([...elements, { id, type: gate, x: newX, y: newY, inputs: [], output: null }]);
+    setLastGatePosition({ x: newX, y: newY }); // Update last position
   };
 
   const moveGate = (id, x, y) => {
