@@ -8,6 +8,9 @@ import nandGate from "./assets/nand.svg";
 import orGate from "./assets/or.svg";
 import norGate from "./assets/nor.svg";
 
+import TruthTable from "./TruthTable";
+import examples from "./examplesData";
+
 const gateIcons = {
   AND: { src: andGate, inputs: 2, outputs: 1 },
   NOT: { src: notGate, inputs: 1, outputs: 1 },
@@ -15,11 +18,6 @@ const gateIcons = {
   NAND: { src: nandGate, inputs: 2, outputs: 1 },
   NOR: { src: norGate, inputs: 2, outputs: 1 },
 };
-
-const examples = [
-  { name: "Example 1", truthTable: [[0, 0, 0], [0, 1, 1]] },
-  { name: "Example 2", truthTable: [[1, 0, 1], [1, 1, 0]] },
-];
 
 export default function LogicGateApp() {
   const [elements, setElements] = useState([]);
@@ -124,35 +122,11 @@ export default function LogicGateApp() {
 
   return (
     <div className="container">
-      <div className="card">
-        <h2>{examples[exampleIndex].name}</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Input A</th>
-              <th>Input B</th>
-              <th>Output</th>
-            </tr>
-          </thead>
-          <tbody>
-            {examples[exampleIndex].truthTable.map((row, index) => (
-              <tr key={index}>
-                {row.map((cell, i) => (
-                  <td key={i}>{cell}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <div className="button-container">
-          <button onClick={() => setExampleIndex((prev) => Math.max(0, prev - 1))} className="button">
-            Previous
-          </button>
-          <button onClick={() => setExampleIndex((prev) => Math.min(examples.length - 1, prev + 1))} className="button">
-            Next
-          </button>
-        </div>
-      </div>
+      <TruthTable
+        example={examples[exampleIndex]}
+        setExampleIndex={setExampleIndex}
+        totalExamples={examples.length}
+      />
 
       <div className="logic-gate-container">
         <div className="gate-selector">
