@@ -7,6 +7,8 @@ import TruthTable from "./TruthTable";
 import examples from "./examplesData";
 import GateSelector from "./GateSelector";
 import gateIcons from "./assets/GateIcons";
+import LogicGateCanvas from "./LogicGateCanvas";
+
 
 export default function LogicGateApp() {
   const [elements, setElements] = useState([]);
