@@ -2,22 +2,11 @@ import React, { useState, useRef, useEffect } from "react";
 import Draggable from "react-draggable";
 import { motion } from "framer-motion";
 import "./logic_gate_styles.css";
-import andGate from "./assets/and.svg";
-import notGate from "./assets/not.svg";
-import nandGate from "./assets/nand.svg";
-import orGate from "./assets/or.svg";
-import norGate from "./assets/nor.svg";
 
 import TruthTable from "./TruthTable";
 import examples from "./examplesData";
-
-const gateIcons = {
-  AND: { src: andGate, inputs: 2, outputs: 1 },
-  NOT: { src: notGate, inputs: 1, outputs: 1 },
-  OR: { src: orGate, inputs: 2, outputs: 1 },
-  NAND: { src: nandGate, inputs: 2, outputs: 1 },
-  NOR: { src: norGate, inputs: 2, outputs: 1 },
-};
+import GateSelector from "./GateSelector";
+import gateIcons from "./assets/GateIcons";
 
 export default function LogicGateApp() {
   const [elements, setElements] = useState([]);
@@ -28,6 +17,8 @@ export default function LogicGateApp() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [exampleIndex, setExampleIndex] = useState(0);
   const [lastGatePosition, setLastGatePosition] = useState({ x: 50, y: 50 });
+  const [draggingDisabled, setDraggingDisabled] = useState(false);
+
 
   useEffect(() => {
     const handleMouseMove = (event) => {
@@ -86,16 +77,16 @@ export default function LogicGateApp() {
 
   const handleGateClick = (id, event) => {
     if (!isDrawing) return;
-
+  
     const gateElement = gateRefs.current[id]?.current;
     if (!gateElement) return;
-
+  
     const rect = gateElement.getBoundingClientRect();
     const clickX = event.clientX - rect.left;
     const gateWidth = rect.width;
-
+  
     const gateData = gateIcons[elements.find(el => el.id === id).type];
-
+  
     if (!tempConnection) {
       if (clickX > gateWidth / 2) {
         setTempConnection({ id, portType: "output", portIndex: 0 });
@@ -107,10 +98,11 @@ export default function LogicGateApp() {
           const clickY = event.clientY - rect.top;
           inputIndex = clickY < rect.height / 2 ? 0 : 1;
         }
-
+  
         setConnections([...connections, { from: tempConnection, to: { id, portType: "input", portIndex: inputIndex } }]);
         setTempConnection(null);
         setIsDrawing(false);
+        setDraggingDisabled(false); // Re-enable dragging after drawing mode
       }
     }
   };
@@ -129,17 +121,7 @@ export default function LogicGateApp() {
       />
 
       <div className="logic-gate-container">
-        <div className="gate-selector">
-          <h3>Logic Gates</h3>
-          {Object.keys(gateIcons).map((gate) => (
-            <button key={gate} onClick={() => addGate(gate)} className="logic-gate">
-              <img src={gateIcons[gate].src} alt={`${gate} Gate`} width="50" height="30" style={{ objectFit: "contain" }} />
-            </button>
-          ))}
-          <button onClick={() => setIsDrawing(true)} className="logic-gate-line">
-            🔗 Draw Connection
-          </button>
-        </div>
+        <GateSelector addGate={addGate} setIsDrawing={setIsDrawing} setDraggingDisabled={setDraggingDisabled} />
 
         <div className="canvas">
           <button className="refresh-button" onClick={resetCanvas}>
@@ -147,7 +129,12 @@ export default function LogicGateApp() {
           </button>
 
           {elements.map((el) => (
-            <Draggable key={el.id} nodeRef={gateRefs.current[el.id]} defaultPosition={{ x: el.x, y: el.y }} onStop={(e, data) => moveGate(el.id, data.x, data.y)}>
+            <Draggable key={el.id}
+            nodeRef={gateRefs.current[el.id]}
+            defaultPosition={{ x: el.x, y: el.y }}
+            onStop={(e, data) => moveGate(el.id, data.x, data.y)}
+            disabled={draggingDisabled}
+            >
               <motion.div 
                 ref={gateRefs.current[el.id]} 
                 className="draggable-gate" 
