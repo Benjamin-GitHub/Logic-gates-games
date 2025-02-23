@@ -2,6 +2,7 @@ import React from "react";
 import Draggable from "react-draggable";
 import { motion } from "framer-motion";
 import GateConnections from "./GateConnections";
+import DraggableGate from "./DraggableGate";
 
 
 const LogicGateCanvas = ({ 
@@ -24,27 +25,18 @@ const LogicGateCanvas = ({
       </button>
 
       {elements.map((el) => (
-        <Draggable 
+        <DraggableGate 
           key={el.id} 
-          nodeRef={gateRefs.current[el.id]} 
-          defaultPosition={{ x: el.x, y: el.y }} 
-          onStop={(e, data) => moveGate(el.id, data.x, data.y)}
-          disabled={draggingDisabled} // Disable dragging when in draw mode
-        >
-          <motion.div 
-            ref={gateRefs.current[el.id]} 
-            className="draggable-gate" 
-            onClick={(event) => handleGateClick(el.id, event)}
-            style={{ cursor: isDrawing ? "crosshair" : "grab" }}
-          >
-            <img 
-              src={gateIcons[el.type].src} 
-              alt={`${el.type} Gate`} 
-              width={60} height={60} 
-            />
-          </motion.div>
-        </Draggable>
+          gate={el} 
+          gateRef={gateRefs.current[el.id]} 
+          moveGate={moveGate} 
+          handleGateClick={handleGateClick} 
+          isDrawing={isDrawing} 
+          gateIcons={gateIcons} 
+          draggingDisabled={draggingDisabled} 
+        />
       ))}
+
       <GateConnections 
         elements={elements} 
         connections={connections} 

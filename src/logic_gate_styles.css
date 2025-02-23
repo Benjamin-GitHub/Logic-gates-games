@@ -8,7 +8,8 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  overflow: hidden;
+  overflow: auto;
+  height: 100%;
 }
 
 .container {
@@ -19,6 +20,8 @@ body {
   width: 100%;
   max-width: 1200px;
   padding: 10px;
+  min-height: 100vh;
+  overflow-y: auto;
 }
 
 .card {
@@ -122,9 +125,11 @@ body {
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  overflow: auto;
   min-width: 600px;
   max-width: 100%;
+  min-height: 500px;
+  max-height: 100vh;
 }
 
 .refresh-button {
