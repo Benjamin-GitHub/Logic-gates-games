@@ -1,9 +1,6 @@
 import React from "react";
-import Draggable from "react-draggable";
-import { motion } from "framer-motion";
-import GateConnections from "./GateConnections";
 import DraggableGate from "./DraggableGate";
-
+import GateConnections from "./GateConnections";
 
 const LogicGateCanvas = ({ 
   elements, 
@@ -16,7 +13,9 @@ const LogicGateCanvas = ({
   mousePosition, 
   resetCanvas, 
   gateIcons, 
-  draggingDisabled
+  draggingDisabled,
+  fixedBlocks,
+  handleBlockClick
 }) => {
   return (
     <div className="canvas">
@@ -24,6 +23,19 @@ const LogicGateCanvas = ({
         🔄 Try Again
       </button>
 
+      {/* Fixed Input Blocks */}
+      {fixedBlocks.map((block) => (
+        <div 
+          key={block.id} 
+          className={`fixed-block ${block.type}-block`} 
+          style={{ top: block.top, left: block.left, right: block.right }}
+          onClick={() => handleBlockClick(block.id)}
+        >
+          {block.label}
+        </div>
+      ))}
+
+      {/* Render Draggable Gates */}
       {elements.map((el) => (
         <DraggableGate 
           key={el.id} 
@@ -37,12 +49,14 @@ const LogicGateCanvas = ({
         />
       ))}
 
+      {/* Render Connections */}
       <GateConnections 
         elements={elements} 
         connections={connections} 
         tempConnection={tempConnection} 
         mousePosition={mousePosition} 
-        gateIcons={gateIcons} 
+        gateIcons={gateIcons}
+        fixedBlocks={fixedBlocks}
       />
     </div>
   );

@@ -1,6 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import Draggable from "react-draggable";
-import { motion } from "framer-motion";
 import "./logic_gate_styles.css";
 
 import TruthTable from "./TruthTable";
@@ -21,7 +19,25 @@ export default function LogicGateApp() {
   const [lastGatePosition, setLastGatePosition] = useState({ x: 50, y: 50 });
   const [draggingDisabled, setDraggingDisabled] = useState(false);
 
+  const fixedBlocks = [
+    { id: "input1", label: "IN 1", type: "input", top: "20%", left: "10px" },
+    { id: "input2", label: "IN 2", type: "input", top: "50%", left: "10px" },
+    { id: "output", label: "OUT", type: "output", top: "35%", right: "10px" }
+  ];
 
+  const handleBlockClick = (id) => {
+    if (!isDrawing) return;
+  
+    if (!tempConnection) {
+      setTempConnection({ id, portType: "output", portIndex: 0 });
+    } else {
+      setConnections([...connections, { from: tempConnection, to: { id, portType: "input", portIndex: 0 } }]);
+      setTempConnection(null);
+      setIsDrawing(false);
+      setDraggingDisabled(false); // Re-enable dragging after drawing
+    }
+  };
+  
   useEffect(() => {
     const handleMouseMove = (event) => {
       const canvas = document.querySelector(".canvas");
@@ -137,6 +153,8 @@ export default function LogicGateApp() {
           resetCanvas={resetCanvas} 
           gateIcons={gateIcons} 
           draggingDisabled={draggingDisabled} 
+          fixedBlocks={fixedBlocks} 
+          handleBlockClick={handleBlockClick} 
         />
       </div>
     </div>
