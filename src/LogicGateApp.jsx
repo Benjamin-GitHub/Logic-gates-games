@@ -34,7 +34,7 @@ export default function LogicGateApp() {
       setConnections([...connections, { from: tempConnection, to: { id, portType: "input", portIndex: 0 } }]);
       setTempConnection(null);
       setIsDrawing(false);
-      setDraggingDisabled(false); // Re-enable dragging after drawing
+      setDraggingDisabled(false);
     }
   };
   
@@ -64,27 +64,25 @@ export default function LogicGateApp() {
     gateRefs.current[id] = React.createRef();
     const canvas = document.querySelector(".canvas");
     const canvasRect = canvas.getBoundingClientRect();
-    const gateWidth = 70; // Approximate gate width
-    const gateHeight = 70; // Approximate gate height
-    const padding = 20; // Space between gates
+    const gateWidth = 70;
+    const gateHeight = 70; 
+    const padding = 20;
   
     let newX = lastGatePosition.x + gateWidth + padding;
     let newY = lastGatePosition.y;
   
-    // If the new gate will go out of canvas width, wrap to next row
     if (newX + gateWidth > canvasRect.width) {
-      newX = 50; // Reset X position
-      newY += gateHeight + padding; // Move to the next row
+      newX = 50;
+      newY += gateHeight + padding;
     }
   
-    // If the new gate goes out of canvas height, restart from the first position
     if (newY + gateHeight > canvasRect.height) {
       newX = 50;
       newY = 50;
     }
   
     setElements([...elements, { id, type: gate, x: newX, y: newY, inputs: [], output: null }]);
-    setLastGatePosition({ x: newX, y: newY }); // Update last position
+    setLastGatePosition({ x: newX, y: newY });
   };
 
   const moveGate = (id, x, y) => {
@@ -120,7 +118,7 @@ export default function LogicGateApp() {
         setConnections([...connections, { from: tempConnection, to: { id, portType: "input", portIndex: inputIndex } }]);
         setTempConnection(null);
         setIsDrawing(false);
-        setDraggingDisabled(false); // Re-enable dragging after drawing mode
+        setDraggingDisabled(false);
       }
     }
   };

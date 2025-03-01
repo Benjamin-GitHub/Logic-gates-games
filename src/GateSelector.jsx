@@ -20,9 +20,9 @@ const GateSelector = ({ addGate, setIsDrawing, setDraggingDisabled }) => {
             onClick={() => {
                 setIsDrawing((prev) => {
                 if (prev) {
-                    setDraggingDisabled(false); // Enable dragging when exiting draw mode
+                    setDraggingDisabled(false); 
                 } else {
-                    setDraggingDisabled(true); // Disable dragging when entering draw mode
+                    setDraggingDisabled(true);
                 }
                 return !prev;
                 });
