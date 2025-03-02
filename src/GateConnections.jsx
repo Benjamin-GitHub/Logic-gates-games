@@ -5,9 +5,14 @@ const GateConnections = ({ elements, connections, tempConnection, mousePosition,
   return (
     <svg className="connections">
       {connections.map((conn, index) => {
-        const fromEl = elements.find((el) => el.id === conn.from.id) || fixedBlocks.find((block) => block.id === conn.from.id);
-        const toEl = elements.find((el) => el.id === conn.to.id) || fixedBlocks.find((block) => block.id === conn.to.id);
-        if (!fromEl || !toEl) return null;
+        const fromEl = (elements && elements.find(el => el.id === conn.from.id)) || 
+        (fixedBlocks && fixedBlocks.find(block => block.id === conn.from.id));
+
+        const toEl = (elements && elements.find(el => el.id === conn.to.id)) || 
+              (fixedBlocks && fixedBlocks.find(block => block.id === conn.to.id));
+
+        if (!fromEl || !toEl) return null; // Prevents further errors
+
 
         const toGateData = gateIcons[toEl.type] || {};
 

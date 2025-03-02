@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import DraggableGate from "./DraggableGate";
 import GateConnections from "./GateConnections";
 
@@ -17,11 +18,14 @@ const LogicGateCanvas = ({
   fixedBlocks,
   handleBlockClick
 }) => {
+  const navigate = useNavigate();
+  
   return (
     <div className="canvas">
       <button className="refresh-button" onClick={resetCanvas}>
         🔄 Try Again
       </button>
+      <button className="back-button" onClick={() => navigate("/")}>🔙 Back to Start</button>
 
       {/* Fixed Input Blocks */}
       {fixedBlocks.map((block) => (
@@ -51,12 +55,12 @@ const LogicGateCanvas = ({
 
       {/* Render Connections */}
       <GateConnections 
-        elements={elements} 
-        connections={connections} 
-        tempConnection={tempConnection} 
-        mousePosition={mousePosition} 
+        elements={elements || []}
+        connections={connections || []}
+        tempConnection={tempConnection}
+        mousePosition={mousePosition}
         gateIcons={gateIcons}
-        fixedBlocks={fixedBlocks}
+        fixedBlocks={fixedBlocks || []}
       />
     </div>
   );
